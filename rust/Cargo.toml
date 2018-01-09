@@ -1,0 +1,7 @@
+[package]
+name = "dice-roller"
+version = "0.1.0"
+authors = ["Jason Howell <jasonrobot64@gmail.com>"]
+
+[dependencies]
+rand = "0.4"
