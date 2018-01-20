@@ -38,15 +38,6 @@ fn _roll(amount: i32, sides: i32) -> Vec<i32> {
 }
 
 fn parse(line: &str) -> (i32, i32) {
-    // if !is_valid(line) {
-    //     panic!("invalid line");
-    // }
-    // let split = line.split("d");
-    // let vec: Vec<&str> = split.collect();
-    // if vec.len == 1 {
-        
-    // }
-    // (vec[0].parse::<i32>().unwrap(), vec[1].parse::<i32>().unwrap())
     let pattern = Regex::new(r"(\d*)d(\d+)").unwrap();
     let caps = pattern.captures(line).unwrap();
     let mut result = vec![];
@@ -66,15 +57,6 @@ fn parse(line: &str) -> (i32, i32) {
     }
     (result[0], result[1])
 }
-
-fn is_valid(line: &str) -> bool {
-    let pattern = Regex::new(r"\d*d\d+").unwrap();
-    println!("checking that {} contains {}", line, pattern);
-    let result = pattern.is_match(line);
-    println!("{}", result);
-    result
-}
-
 
 #[cfg(test)]
 mod tests {
