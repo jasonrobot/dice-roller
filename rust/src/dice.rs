@@ -1,6 +1,9 @@
 extern crate rand;
+extern crate regex;
 
 use self::rand::Rng;
+use self::regex::Regex;
+
 // use self::rand::distributions::{Range, IndependentSample};
 #[derive(Debug)]
 pub struct Dice {
@@ -35,16 +38,41 @@ fn _roll(amount: i32, sides: i32) -> Vec<i32> {
 }
 
 fn parse(line: &str) -> (i32, i32) {
-    if !is_valid(line) {
-        panic!("invalid line");
+    // if !is_valid(line) {
+    //     panic!("invalid line");
+    // }
+    // let split = line.split("d");
+    // let vec: Vec<&str> = split.collect();
+    // if vec.len == 1 {
+        
+    // }
+    // (vec[0].parse::<i32>().unwrap(), vec[1].parse::<i32>().unwrap())
+    let pattern = Regex::new(r"(\d*)d(\d+)").unwrap();
+    let caps = pattern.captures(line).unwrap();
+    let mut result = vec![];
+    for item in caps.iter() {
+        let cap_text = item.unwrap().as_str();
+        println!("{}", cap_text);
+        if cap_text.contains("d") {
+            continue;
+        }
+        if cap_text == "" {
+            result.push(1);
+        }
+        else {
+            println!("parsing {}", cap_text);
+            result.push(cap_text.parse::<i32>().unwrap())
+        }
     }
-    let split = line.split("d");
-    let vec: Vec<&str> = split.collect();
-    (vec[0].parse::<i32>().unwrap(), vec[1].parse::<i32>().unwrap())
+    (result[0], result[1])
 }
 
 fn is_valid(line: &str) -> bool {
-    line.matches(r"^(\d*)d(\d+)$").count() == 1
+    let pattern = Regex::new(r"\d*d\d+").unwrap();
+    println!("checking that {} contains {}", line, pattern);
+    let result = pattern.is_match(line);
+    println!("{}", result);
+    result
 }
 
 
@@ -75,5 +103,11 @@ mod tests {
         let result = super::parse("-3d4");
         println!("{:?}", result);
         assert!(result.0 != -3);
+    }
+
+    #[test]
+    fn test_parse_assumes_amount_1() {
+        let result = super::parse("d20");
+        assert_eq!(result.0, 1);
     }
 }
