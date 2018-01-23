@@ -23,11 +23,11 @@ impl Dice {
     }
 
     pub fn roll(&self) -> Vec<i32> {
-        _roll(self.amount, self.sides)
+        do_roll(self.amount, self.sides)
     }
 }
 
-fn _roll(amount: i32, sides: i32) -> Vec<i32> {
+fn do_roll(amount: i32, sides: i32) -> Vec<i32> {
     let mut v: Vec<i32> = Vec::new();
     let mut rng = rand::thread_rng();
 
@@ -58,6 +58,8 @@ fn parse(line: &str) -> (i32, i32) {
     (result[0], result[1])
 }
 
+// Tests here!
+
 #[cfg(test)]
 mod tests {
     #[test]
@@ -72,6 +74,11 @@ mod tests {
     fn test_parse() {
         let result = super::parse("3d6");
         assert_eq!(result, (3, 6));
+    }
+
+    #[test]
+    dn test_roll() {
+        
     }
 
     #[test]
