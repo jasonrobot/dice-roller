@@ -5,18 +5,31 @@ RM=rm -f
 # LDFLAGS=-g $(shell root-config --ldflags)
 # LDLIBS=$(shell root-config --libs)
 
-SRCS=$(main.c)
-OBJS=$(subst .c,.o,$(SRCS))
+SRC_DIR := src
+OBJ_DIR := obj
+INC_FILES := $(wildcard $(SRC_DIR)/*.h)
+SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+# $LDFLAGS := ...
+# $CFLAGS := ...
 
-all: dice
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -c -o $@ $<
 
-dice: $(OBJS)
-	$(CC) -o dice $(OBJS)
+dice: $(OBJ_FILES)
+	$(CC) $(LDFLAGS) -o $@ $(OBJ_FILES)
 
-dice.o: main.c
+test: $(OBJ_FILES)
+	@echo $@
+	@echo $^
+	@echo $(SRC_DIR)
+	@echo $(SRC_FILES)
+	@echo $(wildcard $(SRC_DIR)/*.c)
+	@echo $(OBJ_DIR)
+	@echo $(OBJ_FILES)
 
 clean: 
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_FILES)
 
-distclean: clean
+cleanall: clean
 	$(RM) dice

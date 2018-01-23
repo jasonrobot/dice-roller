@@ -65,9 +65,9 @@ mod tests {
     #[test]
     fn sample_test() {
         assert_eq!(2 + 2, 4);
-        assert!( super::_roll(3, 4).len() == 3 );
+        assert!( super::do_roll(3, 4).len() == 3 );
         let d = super::parse("2d12");
-        println!("{:?}", super::_roll(d.0, d.1));
+        println!("{:?}", super::do_roll(d.0, d.1));
     }
 
     #[test]
@@ -76,9 +76,14 @@ mod tests {
         assert_eq!(result, (3, 6));
     }
 
+    // what this is meant to test is that the RNG is being constrained properly
+    // like a d4 should roll 1, 2, 3, or 4, never 0 or 5
     #[test]
-    dn test_roll() {
-        
+    fn test_roll() {
+        let r = super::do_roll(100, 3);
+        for value in r.into_iter() {
+            assert!(value > 0 && value <= 3);
+        }
     }
 
     #[test]
