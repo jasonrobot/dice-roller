@@ -1,2 +1,5 @@
-rust/target
+.vscode/
+rust/target/
 go/dice-roller
+c/obj/
+c/dice
