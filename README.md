@@ -6,10 +6,10 @@ This is just a fun, trivial project for me to do over and over in different lang
 
 ## Completed Versions:
 * Ruby (on my other computer)
+* Rust
 
 ### WIP Versions:
 * C
-* Rust
 * Python
 * Go
 * Crystal
