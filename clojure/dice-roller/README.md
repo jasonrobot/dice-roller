@@ -10,14 +10,6 @@ Clojure version of the project. The structure is a little different in here, sin
 
     $ java -jar dice-roller-0.1.0-standalone.jar [args]
 
-## Examples
-
-...
-
 ### Bugs
 
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Probably there are.
