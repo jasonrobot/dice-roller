@@ -1,6 +1,7 @@
 extern crate rand;
 extern crate regex;
 
+use std::error::Error;
 use self::rand::Rng;
 use self::regex::Regex;
 
@@ -39,30 +40,48 @@ fn do_roll(amount: i32, sides: i32) -> Vec<i32> {
     v
 }
 
-fn parse(line: &str) -> Option<(i32, i32)> {
+fn parse(line: &str) -> Result<(i32, i32), std::error::Error> {
     // unwrap ok here, just dont give invalid regex
     let pattern = Regex::new(r"^(\d*)d(\d+)").unwrap();
-    match pattern.captures(line) {
-        None => None,
-        Some(caps) => {
-            let mut result = vec![];
-            for item in caps.iter() {
-                let cap_text = item.unwrap().as_str();
-                info!("{}", cap_text);
-                if cap_text.contains("d") {
-                    continue;
-                }
-                if cap_text == "" {
-                    result.push(1);
-                }
-                else {
-                    info!("parsing {}", cap_text);
-                    result.push(cap_text.parse::<i32>().unwrap())
-                }
-            }
-            Some((result[0], result[1]))
+    let caps = pattern.captures(line)?;
+    let mut result = vec![];
+    for item in caps.iter() {
+        let cap_text = item.unwrap().as_str();
+        info!("{}", cap_text);
+        if cap_text.contains("d") {
+            continue;
+        }
+        if cap_text == "" {
+            result.push(1);
+        }
+        else {
+            info!("parsing {}", cap_text);
+            result.push(cap_text.parse::<i32>().unwrap())
         }
     }
+    Ok( (result[0], result[1]) )
+
+    // match pattern.captures(line) {
+    //     None => None,
+    //     Some(caps) => {
+    //         let mut result = vec![];
+    //         for item in caps.iter() {
+    //             let cap_text = item.unwrap().as_str();
+    //             info!("{}", cap_text);
+    //             if cap_text.contains("d") {
+    //                 continue;
+    //             }
+    //             if cap_text == "" {
+    //                 result.push(1);
+    //             }
+    //             else {
+    //                 info!("parsing {}", cap_text);
+    //                 result.push(cap_text.parse::<i32>().unwrap())
+    //             }
+    //         }
+    //         Ok( (result[0], result[1]) )
+    //     }
+    // }
 }
 
 // Tests here!
