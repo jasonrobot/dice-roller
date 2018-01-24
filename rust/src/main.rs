@@ -11,8 +11,6 @@ use regex::Regex;
 //use dice::Dice;
 
 fn main() {
-    debug!("basic method: {}", rand::random::<u64>());
-
     debug!("using the real thing,");
     let d = dice::Dice::from_string("20d6").unwrap();
     debug!("d6: {:?}", d.roll());

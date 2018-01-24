@@ -41,7 +41,7 @@ fn do_roll(amount: i32, sides: i32) -> Vec<i32> {
 
 fn parse(line: &str) -> Option<(i32, i32)> {
     // unwrap ok here, just dont give invalid regex
-    let pattern = Regex::new(r"(\d*)d(\d+)").unwrap();
+    let pattern = Regex::new(r"^(\d*)d(\d+)").unwrap();
     match pattern.captures(line) {
         None => None,
         Some(caps) => {
@@ -75,13 +75,13 @@ mod tests {
     fn sample_test() {
         assert_eq!(2 + 2, 4);
         assert!( do_roll(3, 4).len() == 3 );
-        let d = parse("2d12");
+        let d = parse("2d12").unwrap();
         info!("{:?}", do_roll(d.0, d.1));
     }
 
     #[test]
     fn test_parse() {
-        let result = parse("3d6");
+        let result = parse("3d6").unwrap();
         assert_eq!(result, (3, 6));
     }
 
@@ -102,15 +102,23 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_does_not_allow_negative_values() {
-        let result = parse("-3d4");
-        info!("{:?}", result);
-        assert!(result.0 != -3);
+    fn test_parse_assumes_amount_1() {
+        let result = parse("d20").unwrap();
+        assert_eq!(result.0, 1);
     }
 
+    // tests that parse returns None given an invalid input
     #[test]
-    fn test_parse_assumes_amount_1() {
-        let result = parse("d20");
-        assert_eq!(result.0, 1);
+    fn test_parse_error_handling() {
+        let message = "parse should return None for \"foobar\"";
+        match parse("foobar") {
+            None => assert!(true, message),
+            Some(_) => assert!(false, message),
+        }
+        let message = "parse should return None for \"-3d4\"";
+        match parse("-3d4") {
+            None => assert!(true, message),
+            Some(_) => assert!(false, message),
+        }
     }
 }
