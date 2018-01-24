@@ -17,9 +17,11 @@ impl Dice {
         Dice {amount, sides}
     }
 
-    pub fn from_string(line: &str) -> Dice {
-        let (amount, sides) = parse(line);
-        Dice {amount, sides}
+    pub fn from_string(line: &str) -> Option<Dice> {
+        match parse(line) {
+            None => None,
+            Some((amount, sides)) => Some(Dice {amount, sides})
+        }
     }
 
     pub fn roll(&self) -> Vec<i32> {
@@ -37,25 +39,30 @@ fn do_roll(amount: i32, sides: i32) -> Vec<i32> {
     v
 }
 
-fn parse(line: &str) -> (i32, i32) {
+fn parse(line: &str) -> Option<(i32, i32)> {
+    // unwrap ok here, just dont give invalid regex
     let pattern = Regex::new(r"(\d*)d(\d+)").unwrap();
-    let caps = pattern.captures(line).unwrap();
-    let mut result = vec![];
-    for item in caps.iter() {
-        let cap_text = item.unwrap().as_str();
-        println!("{}", cap_text);
-        if cap_text.contains("d") {
-            continue;
-        }
-        if cap_text == "" {
-            result.push(1);
-        }
-        else {
-            println!("parsing {}", cap_text);
-            result.push(cap_text.parse::<i32>().unwrap())
+    match pattern.captures(line) {
+        None => None,
+        Some(caps) => {
+            let mut result = vec![];
+            for item in caps.iter() {
+                let cap_text = item.unwrap().as_str();
+                info!("{}", cap_text);
+                if cap_text.contains("d") {
+                    continue;
+                }
+                if cap_text == "" {
+                    result.push(1);
+                }
+                else {
+                    info!("parsing {}", cap_text);
+                    result.push(cap_text.parse::<i32>().unwrap())
+                }
+            }
+            Some((result[0], result[1]))
         }
     }
-    (result[0], result[1])
 }
 
 // Tests here!
@@ -69,7 +76,7 @@ mod tests {
         assert_eq!(2 + 2, 4);
         assert!( do_roll(3, 4).len() == 3 );
         let d = parse("2d12");
-        println!("{:?}", do_roll(d.0, d.1));
+        info!("{:?}", do_roll(d.0, d.1));
     }
 
     #[test]
@@ -97,7 +104,7 @@ mod tests {
     #[test]
     fn test_parse_does_not_allow_negative_values() {
         let result = parse("-3d4");
-        println!("{:?}", result);
+        info!("{:?}", result);
         assert!(result.0 != -3);
     }
 

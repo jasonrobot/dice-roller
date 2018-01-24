@@ -6,3 +6,4 @@ authors = ["Jason Howell <jasonrobot64@gmail.com>"]
 [dependencies]
 rand = "0.4"
 regex = "0.2"
+log = "0.4"
