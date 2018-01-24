@@ -62,17 +62,19 @@ fn parse(line: &str) -> (i32, i32) {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    
     #[test]
     fn sample_test() {
         assert_eq!(2 + 2, 4);
-        assert!( super::do_roll(3, 4).len() == 3 );
-        let d = super::parse("2d12");
-        println!("{:?}", super::do_roll(d.0, d.1));
+        assert!( do_roll(3, 4).len() == 3 );
+        let d = parse("2d12");
+        println!("{:?}", do_roll(d.0, d.1));
     }
 
     #[test]
     fn test_parse() {
-        let result = super::parse("3d6");
+        let result = parse("3d6");
         assert_eq!(result, (3, 6));
     }
 
@@ -80,7 +82,7 @@ mod tests {
     // like a d4 should roll 1, 2, 3, or 4, never 0 or 5
     #[test]
     fn test_roll() {
-        let r = super::do_roll(100, 3);
+        let r = do_roll(100, 3);
         for value in r.into_iter() {
             assert!(value > 0 && value <= 3);
         }
@@ -88,20 +90,20 @@ mod tests {
 
     #[test]
     fn test_use_dice() {
-        let d = super::Dice::new(6, 6);
+        let d = Dice::new(6, 6);
         d.roll();
     }
 
     #[test]
     fn test_parse_does_not_allow_negative_values() {
-        let result = super::parse("-3d4");
+        let result = parse("-3d4");
         println!("{:?}", result);
         assert!(result.0 != -3);
     }
 
     #[test]
     fn test_parse_assumes_amount_1() {
-        let result = super::parse("d20");
+        let result = parse("d20");
         assert_eq!(result.0, 1);
     }
 }
