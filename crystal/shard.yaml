@@ -1,0 +1,3 @@
+dependencies:
+  crystal-random:
+    github: crystal-lang/crystal-random
