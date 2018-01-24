@@ -3,6 +3,8 @@
 #include "time.h"
 #include "dice.h"
 
+#ifndef TESTING
+
 int main(void) {
     printf("4\nbut really...\n");
     srand(time(NULL));
@@ -23,3 +25,5 @@ int main(void) {
     free(results);
     return 0;
 }
+
+#endif
