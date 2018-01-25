@@ -4,15 +4,8 @@
 #include "dice.h"
 #include "string.h"
 
-int main(void) {
-    printf("4\nbut really...\n");
-    srand(time(NULL));
-    // int result = rand();
-    // printf("%d\n", result);
-    printf("%d\n", rollOne(6));
-    printf("Ok, this is a lot harder already.\n");
-    int amount = 10;
-    int* results = roll(amount, 20);
+void rollAndPrint(int amount, int sides) {
+    int* results = roll(amount, sides);
     printf("[");
     for (int i = 0; i < amount; i++) {
         printf("%d", results[i]);
@@ -20,30 +13,36 @@ int main(void) {
             printf(", ");
         }
     }
-    printf("]\n");
+    printf("]\n");    
     free(results);
+}
 
+int main(void) {
     int running = 1;
     char input[BUFSIZ];
     char firstnum[BUFSIZ];
     char secondnum[BUFSIZ];
     while (running) {
+        printf("Enter dice to roll (q to quit): ");
         if ( fgets(input, BUFSIZ, stdin) == NULL ) {
-            continue;
+            break;
         }
-        printf("%s\n", input);
+
         if (input[0] == 'q') {
             running = 0;
+            break;
         }
-        char* d_char = NULL;
-        d_char = strchr(input, 'd');
-        if (d_char == NULL) {
+
+        int amount = 0;
+        int sides = 0;
+        if (parse(input, &amount, &sides) != INVALID_DICE_STRING) {
+            printf("rolling %dd%d\n", amount, sides);
+            //results = roll(amount, sides);
+            rollAndPrint(amount, sides);
+        }
+        else {
             printf("Unable to parse input: %s\n", input);
-            continue;
         }
-        strncpy(firstnum, input, (d_char-firstnum)/sizeof(char));
-        strcpy(secondnum, d_char + sizeof(char));
-        printf("%s, %s", firstnum, secondnum);
     }
 
     return 0;

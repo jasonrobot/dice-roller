@@ -10,14 +10,14 @@ OBJ_DIR := obj
 INC_FILES := $(wildcard $(SRC_DIR)/*.h)
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
-# $LDFLAGS := ...
-# $CFLAGS := ...
+$LDFLAGS := "-g"
+$CFLAGS := "-g"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c -o $@ $<
+	$(CC) $(CFLAGS) -g -c -o $@ $<
 
 dice: $(OBJ_FILES)
-	$(CC) $(LDFLAGS) -o $@ $(OBJ_FILES)
+	$(CC) $(LDFLAGS) -g -o $@ $(OBJ_FILES)
 
 test: $(OBJ_FILES)
 	@echo $@
