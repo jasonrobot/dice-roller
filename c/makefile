@@ -1,17 +1,13 @@
 CC=gcc
 RM=rm -f
 
-# CPPFLAGS=-g $(shell root-config --cflags)
-# LDFLAGS=-g $(shell root-config --ldflags)
-# LDLIBS=$(shell root-config --libs)
-
 SRC_DIR := src
 OBJ_DIR := obj
 INC_FILES := $(wildcard $(SRC_DIR)/*.h)
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
-$LDFLAGS := "-g"
-$CFLAGS := "-g"
+$_LDFLAGS := -g -Wall
+$_CFLAGS := -g -Wall
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -g -c -o $@ $<
@@ -27,6 +23,8 @@ test: $(OBJ_FILES)
 	@echo $(wildcard $(SRC_DIR)/*.c)
 	@echo $(OBJ_DIR)
 	@echo $(OBJ_FILES)
+	@echo $(CFLAGS)
+	@echo $(LDFLAGS)
 
 clean: 
 	$(RM) $(OBJ_FILES)

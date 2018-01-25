@@ -7,7 +7,8 @@
 #define INVALID_DICE_STRING 1
 
 int rollOne(int);
-int* roll(int, int);
+int roll(int*, int, int);
 int parse(char*, int*, int*);
+int diceResultToString(char*, int*, int);
 
 #endif

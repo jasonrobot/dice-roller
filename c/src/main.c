@@ -4,24 +4,13 @@
 #include "dice.h"
 #include "string.h"
 
-void rollAndPrint(int amount, int sides) {
-    int* results = roll(amount, sides);
-    printf("[");
-    for (int i = 0; i < amount; i++) {
-        printf("%d", results[i]);
-        if ((i + 1 - amount) != 0) {
-            printf(", ");
-        }
-    }
-    printf("]\n");    
-    free(results);
-}
-
 int main(void) {
-    int running = 1;
     char input[BUFSIZ];
-    char firstnum[BUFSIZ];
-    char secondnum[BUFSIZ];
+    int result[256];
+    char resultString[BUFSIZ];
+
+    int running = 1;
+
     while (running) {
         printf("Enter dice to roll (q to quit): ");
         if ( fgets(input, BUFSIZ, stdin) == NULL ) {
@@ -38,7 +27,10 @@ int main(void) {
         if (parse(input, &amount, &sides) != INVALID_DICE_STRING) {
             printf("rolling %dd%d\n", amount, sides);
             //results = roll(amount, sides);
-            rollAndPrint(amount, sides);
+            //rollAndPrint(amount, sides);
+            roll(result, amount, sides);
+            diceResultToString(resultString, result, amount);
+            printf("%s\n", resultString);
         }
         else {
             printf("Unable to parse input: %s\n", input);
