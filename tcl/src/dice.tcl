@@ -2,7 +2,7 @@
 # holds procs related to the rolling of dice
 
 proc roll {amount sides} {
-    puts "rolling a $amount\d$sides"
+    #puts "rolling a $amount\d$sides"
     variable result {}
     for {set i 0} {$i < $amount} {incr i} {
         lappend result [expr {int($sides*rand())+1}]

@@ -10,4 +10,18 @@ test dice_parseWorks {} -body {
     parse "2d4"
 } -result {2 4}
 
+test dice_parse_return0OnInvalidInput {} -body {
+    parse "qwe"
+} -result {0 0}
+
+test dice_roll_shouldBeInRange {} -body {
+    set ds [roll 100 4]
+    foreach x $ds {
+        if {$x < 1 || $x > 4} {
+            return $x
+        }
+    }
+    return ok
+} -result ok
+
 cleanupTests
