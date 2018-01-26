@@ -15,6 +15,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 dice: $(OBJ_FILES)
 	$(CC) $(LDFLAGS) -g -o $@ $(OBJ_FILES)
 
+# learning is hard!
 test: $(OBJ_FILES)
 	@echo $@
 	@echo $^
