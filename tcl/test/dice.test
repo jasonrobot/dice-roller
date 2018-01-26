@@ -1,0 +1,13 @@
+# dice.test
+ 
+package require tcltest
+namespace import ::tcltest::*
+ 
+# Software under test
+source src/dice.tcl
+
+test dice_parseWorks {} -body {
+    parse "2d4"
+} -result {2 4}
+
+cleanupTests
