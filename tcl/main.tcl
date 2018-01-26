@@ -1,15 +1,40 @@
 #!/usr/bin/env tclsh
 
 proc roll {amount sides} {
-    puts -nonewline "\["
+    puts "rolling a $amount\d$sides"
+    variable result {}
     for {set i 0} {$i < $amount} {incr i} {
-        puts -nonewline "[expr {int($sides*rand())+1}]"
-        if {$i < [expr {$amount-1}]} {
-            puts -nonewline ", "
-        }
+        lappend result [expr {int($sides*rand())+1}]
     }
-    puts "]"    
+    return $result
 }
 
-roll 4 100
-roll 40 20
+proc parse {line} {
+    set retval [regexp {^(\d*)d(\d+)$} $line -> amount sides]
+    if {$retval == 0} {
+        return {0 0}
+    }
+    if {$amount == ""} {
+        set amount "1"
+    }
+    return [list $amount $sides]
+}
+
+set line ""
+
+puts "Welcome!"
+while 1 {
+    puts -nonewline "Enter dice (q to quit): "
+    flush stdout
+    gets stdin line
+    if {$line == {q}} {
+        break
+    }
+    set dice [parse $line]
+    if {[lindex $dice 0] == 0} {
+        puts "Invalid format"
+    } else {
+        set result [roll {*}$dice]
+    }
+    puts "\[$result\]"
+}
