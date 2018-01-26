@@ -31,7 +31,7 @@
               (recur)))))
 
 (defn -main
-  "just some examples for now"
+  "prints welcome and starts the loop"
   [& args]
   (println "Welcome!")
   (main-loop))
