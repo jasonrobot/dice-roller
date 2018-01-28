@@ -13,7 +13,7 @@ proc doRoll {} {
     } else {
         set result [roll {*}$dice]
     }
-    .c.resultValueLabel configure -text $result
+    .c.resultValueLabel configure -text "\[$result\]"
 }
 
 label .c.diceLabel -text "Enter dice:"
