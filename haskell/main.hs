@@ -12,4 +12,6 @@ roll amount sides
     | amount == 0 = sequence [roll_one sides]
     | otherwise = sequence $ replicate amount $ roll_one sides
 
+-- parse :: String -> (Int, Int)
+-- parse line =
 
