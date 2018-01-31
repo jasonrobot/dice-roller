@@ -4,6 +4,6 @@ import Dice
 
 main :: IO ()
 main = do
-    x <- roll 20 20
+    x <- uncurry roll $ parse "2d12"
     print x
     return ()
