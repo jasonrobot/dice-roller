@@ -17,7 +17,8 @@ roll amount sides = sequence $ replicate amount $ roll_one sides
 --     | amount == 0 = sequence [roll_one sides]
 --     | otherwise = sequence $ replicate amount $ roll_one sides
 
-parse :: String -> (Int, Int)
+parse :: String -> Maybe (Int, Int)
 parse line =
-    let [amount, sides] = tail $ ( line =~ "^(\\d*)d(\\d+)$" ) !! 0
-    in (read amount, read sides)
+    case ( line =~ "^(\\d*)d(\\d+)$" ) of
+        [] -> Nothing
+        [[_, amount, sides]] -> Just (read amount, read sides)
