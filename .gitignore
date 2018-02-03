@@ -4,3 +4,4 @@ go/dice-roller
 c/obj/
 c/dice
 python/__pycache__/
+javascript/react/dice-roller/node_modules/

@@ -16,6 +16,8 @@ func TestNothing(t *testing.T) {
 func TestRoll(t *testing.T) {
 	// roll should do things
 	// should not allow things like d-6, d0, or d > 2**16
+	result := roll(-2, 10)
+
 	// should return values between 1 and the number of sides on the dice
 }
 
