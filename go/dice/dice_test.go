@@ -1,12 +1,11 @@
 package dice
 
 import (
-	"local/jason/dice-roller/dice"
 	"testing"
 )
 
 func TestNothing(t *testing.T) {
-	x := dice.FromString("1d4")
+	x := FromString("1d4")
 	if x.Amount != 1 || x.Sides != 4 {
 		t.Error("Dice was not created correctly")
 	}

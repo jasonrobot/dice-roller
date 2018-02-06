@@ -11,6 +11,12 @@ describe "Dice" do
             end
         end
 
+        it "should not allow 0-sided dice" do
+            expect_raises Exception do
+                do_roll 1, 0
+            end
+        end
+
         it "should return values between 1 and the number of sides on the dice" do
             result = do_roll 100, 3
             [1, 2, 3].each do |x|
@@ -42,6 +48,8 @@ describe "Dice" do
 
     describe "integration" do
         it "should be able to pass the results of parse to roll" do
+            result = parse("4d6")
+            do_roll result[0], result[1]
         end
     end
 end

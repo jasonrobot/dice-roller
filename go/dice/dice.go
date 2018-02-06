@@ -23,20 +23,20 @@ func FromString(line string) Dice {
 	return Dice{a, s}
 }
 
-func roll(amount int, sides int) []int {
-	results := make([]int, amount)
+func roll(amount int, sides int) (results []int) {
+	results = make([]int, amount)
 	for k := range results {
 		results[k] = rand.Intn(sides) + 1
 	}
-	return results
+	return
 }
 
-func parse(line string) (int, int) {
+func parse(line string) (amount, sides int) {
 	split := strings.Split(line, "d")
 	if split[0] == "" {
 		split[0] = "1"
 	}
-	amount, _ := strconv.Atoi(split[0])
-	sides, _ := strconv.Atoi(split[1])
-	return amount, sides
+	amount, _ = strconv.Atoi(split[0])
+	sides, _ = strconv.Atoi(split[1])
+	return
 }

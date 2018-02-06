@@ -8,11 +8,14 @@ This is just a fun, trivial project for me to do over and over in different lang
 * Rust
 * C
 * Python
+* Tcl/Tk
+* Crystal
 
 ### WIP Versions:
+* Haskell
 * Go
-* Crystal
 * Clojure
+* ReactJS
 
 ### TODO Versions:
 * Ruby
@@ -20,11 +23,21 @@ This is just a fun, trivial project for me to do over and over in different lang
 * Java
 * Kotlin
 * Smalltalk
-* Tcl
 * Perl
 * Common Lisp
+* Swift
+* C++
+* PHP
+* Android
 
 ### Concepts
 * TDD
 * Functional
-There's probably a bunch of other concepts/styles/patterns I could explore. Iterators/Generators for the die object, maybe even an MVC, logging/history, something else I havent heard of. ....microservice? Not sure even what that is. Could do GUI stuff too.
+There's probably a bunch of other concepts/styles/patterns I could explore. Iterators/Generators for the die object, maybe even an MVC, logging/history, something else I havent heard of. Could do GUI stuff too.
+
+### Crazy versions:
+* Game Boy
+* ARM asm
+* x86 asm
+* C++/Qt GUI
+

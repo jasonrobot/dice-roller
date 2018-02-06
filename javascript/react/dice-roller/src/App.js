@@ -11,7 +11,7 @@ class DiceRoller extends Component {
         </div>
         <input id="in" type="text" />
         <button type="button">Roll!</button>
-        <div id="results" >no results yet</div>
+        <div id="results">no results yet</div>
       </div>
     );
   }
