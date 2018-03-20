@@ -23,9 +23,10 @@
   "Roll dice, getting input from the minibuffer."
   (interactive)
   (let ((input-string (read-from-minibuffer "Enter dice to roll: ")))
-    (message
-     (string-join
-      (mapcar 'number-to-string (apply 'roll-times (get-ints-to-roll input-string))) " "))))
+    (message (concat "Results are: "
+                     (string-join (mapcar 'number-to-string
+                                          (apply 'roll-times (get-ints-to-roll input-string)))
+                                  ", ")))))
 
 (provide 'roll-dice)
 ;;; roll-dice.el ends here
